@@ -130,7 +130,8 @@ class ResNet12Mtl(nn.Module):
 if __name__ == '__main__':
 
     import torch
-    net = ResNet12Mtl(mtl=True)
+    # net = ResNet12Mtl(mtl=True)
+    net = ResNet12Mtl(drop_rate=0.1, mtl=False)
     x = torch.rand(64, 3, 80, 80)
     y = net(x)
 

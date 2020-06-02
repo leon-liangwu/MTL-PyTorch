@@ -51,10 +51,10 @@ class MtlLearner(nn.Module):
 
         if self.mode == 'meta':
             # self.encoder = ResNetMtl()  
-            self.encoder = ResNet12Mtl()
+            self.encoder = ResNet12Mtl(drop_rate=args.pre_drop_rate)
         else:
             # self.encoder = ResNetMtl(mtl=False)  
-            self.encoder = ResNet12Mtl(mtl=False)
+            self.encoder = ResNet12Mtl(drop_rate=0.0, mtl=False)
             self.pre_fc = nn.Sequential(nn.Linear(640, 1000), nn.ReLU(), nn.Linear(1000, num_cls))
 
     def forward(self, inp):
