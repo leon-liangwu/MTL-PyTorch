@@ -16,10 +16,6 @@ from torch.nn.parameter import Parameter
 from torch.nn.modules.module import Module
 from torch.nn.modules.utils import _pair
 
-global num_w
-
-num_w = 0
-
 class _ConvNdMtl(Module):
     """The class for meta-transfer convolution"""
     def __init__(self, in_channels, out_channels, kernel_size, stride,
@@ -38,7 +34,6 @@ class _ConvNdMtl(Module):
         self.transposed = transposed
         self.output_padding = output_padding
         self.groups = groups
-
         if transposed:
             self.weight = Parameter(torch.Tensor(
                 in_channels, out_channels // groups, *kernel_size))
@@ -47,7 +42,6 @@ class _ConvNdMtl(Module):
             self.weight = Parameter(torch.Tensor(
                 out_channels, in_channels // groups, *kernel_size))
             self.mtl_weight = Parameter(torch.ones(out_channels, in_channels // groups, 1, 1))
-
         self.weight.requires_grad=False
         if bias:
             self.bias = Parameter(torch.Tensor(out_channels))
@@ -95,11 +89,6 @@ class Conv2dMtl(_ConvNdMtl):
         super(Conv2dMtl, self).__init__(
             in_channels, out_channels, kernel_size, stride, padding, dilation,
             False, _pair(0), groups, bias)
-        global num_w
-        num_w += in_channels * out_channels
-        if bias:
-            num_w += out_channels
-        print(out_channels, num_w)
 
     def forward(self, inp):
         new_mtl_weight = self.mtl_weight.expand(self.weight.shape)

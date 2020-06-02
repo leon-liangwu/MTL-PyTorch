@@ -12,8 +12,6 @@
 import torch.nn as nn
 from models.conv2d_mtl import Conv2dMtl
 
-
-
 def conv3x3(in_planes, out_planes, stride=1):
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
                      padding=1, bias=False)
@@ -217,11 +215,3 @@ class ResNetMtl(nn.Module):
         x = x.view(x.size(0), -1)
 
         return x
-        
-
-if __name__ == '__main__':
-
-    import torch
-    net = ResNetMtl(mtl=True)
-    x = torch.rand(1, 3, 80, 80)
-    y = net(x)
