@@ -96,8 +96,6 @@ class PreTrainer(object):
         
         # Start pretrain
         for epoch in range(1, self.args.pre_max_epoch + 1):
-            # Update learning rate
-            self.lr_scheduler.step()
             # Set the model to train mode
             self.model.train()
             self.model.mode = 'pre'
@@ -139,6 +137,9 @@ class PreTrainer(object):
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+
+            # Update learning rate
+            self.lr_scheduler.step()
 
             # Update the averagers
             train_loss_averager = train_loss_averager.item()

@@ -121,8 +121,6 @@ class MetaTrainer(object):
         
         # Start meta-train
         for epoch in range(1, self.args.max_epoch + 1):
-            # Update learning rate
-            self.lr_scheduler.step()
             # Set the model to train mode
             self.model.train()
             # Set averager classes to record training losses and accuracies
@@ -167,6 +165,9 @@ class MetaTrainer(object):
                 self.optimizer.zero_grad()
                 loss.backward()
                 self.optimizer.step()
+
+            # Update learning rate
+            self.lr_scheduler.step()
 
             # Update the averagers
             train_loss_averager = train_loss_averager.item()
