@@ -105,11 +105,11 @@ class ResNet12Mtl(nn.Module):
         else:
             block = BasicBlock
 
-        # cfg = [64, 160, 320, 640]
-        self.layer1 = block(3, 64, drop_rate)
-        self.layer2 = block(64, 160, drop_rate)
-        self.layer3 = block(160, 320, drop_rate)
-        self.layer4 = block(320, 640, drop_rate)
+        channel = [64, 160, 320, 640]
+        self.layer1 = block(3, channel[0], drop_rate)
+        self.layer2 = block(channel[0], channel[1], drop_rate)
+        self.layer3 = block(channel[1], channel[2], drop_rate)
+        self.layer4 = block(channel[2], channel[3], drop_rate)
 
         self.avgpool = nn.AvgPool2d(5, stride=1)
 
