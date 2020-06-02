@@ -14,7 +14,7 @@ def run_exp(num_batch=1000, shot=1, query=15, lr1=0.0001, lr2=0.001, base_lr=0.0
     max_epoch = 100
     way = 5
     step_size = 10
-    gpu = 1
+    gpu = 0
        
     the_command = 'python3 main.py' \
         + ' --max_epoch=' + str(max_epoch) \
