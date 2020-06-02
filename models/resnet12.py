@@ -1,6 +1,6 @@
 import torch.nn as nn
-# from models.conv2d_mtl import Conv2dMtl
-from conv2d_mtl import Conv2dMtl
+from models.conv2d_mtl import Conv2dMtl
+# from conv2d_mtl import Conv2dMtl
 
 def conv3x3(in_planes, out_planes, stride=1, bias=False):
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,

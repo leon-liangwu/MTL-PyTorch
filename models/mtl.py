@@ -12,6 +12,7 @@ import  torch
 import torch.nn as nn
 import torch.nn.functional as F
 from models.resnet_mtl import ResNetMtl
+from models.resnet12 import ResNet12Mtl
 
 class BaseLearner(nn.Module):
     """The class for inner loop."""
@@ -49,9 +50,11 @@ class MtlLearner(nn.Module):
         self.base_learner = BaseLearner(args, z_dim)
 
         if self.mode == 'meta':
-            self.encoder = ResNetMtl()  
+            # self.encoder = ResNetMtl()  
+            self.encoder = ResNet12Mtl()
         else:
-            self.encoder = ResNetMtl(mtl=False)  
+            # self.encoder = ResNetMtl(mtl=False)  
+            self.encoder = ResNet12Mtl(mtl=False)
             self.pre_fc = nn.Sequential(nn.Linear(640, 1000), nn.ReLU(), nn.Linear(1000, num_cls))
 
     def forward(self, inp):

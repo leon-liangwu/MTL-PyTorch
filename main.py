@@ -15,6 +15,8 @@ from utils.gpu_tools import set_gpu
 from trainer.meta import MetaTrainer
 from trainer.pre import PreTrainer
 
+data_dir = '/home/lwuat/Data/mini-imagenet/images/'
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Basic parameters
@@ -23,7 +25,7 @@ if __name__ == '__main__':
     parser.add_argument('--phase', type=str, default='meta_train', choices=['pre_train', 'meta_train', 'meta_eval']) # Phase
     parser.add_argument('--seed', type=int, default=0) # Manual seed for PyTorch, "0" means using random seed
     parser.add_argument('--gpu', default='1') # GPU id
-    parser.add_argument('--dataset_dir', type=str, default='./data/mini/') # Dataset folder
+    parser.add_argument('--dataset_dir', type=str, default=data_dir) # Dataset folder
 
     # Parameters for meta-train phase
     parser.add_argument('--max_epoch', type=int, default=100) # Epoch number for meta-train phase

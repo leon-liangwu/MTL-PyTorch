@@ -11,7 +11,7 @@
 import os
 
 def run_exp(lr=0.1, gamma=0.2, step_size=30):
-    max_epoch = 110
+    max_epoch = 100
     shot = 1
     query = 15
     way = 5
