@@ -46,7 +46,7 @@ class MtlLearner(nn.Module):
         self.mode = mode
         self.update_lr = args.base_lr
         self.update_step = args.update_step
-        z_dim = 640
+        z_dim = 512
         self.base_learner = BaseLearner(args, z_dim)
 
         if self.mode == 'meta':
@@ -55,7 +55,8 @@ class MtlLearner(nn.Module):
         else:
             # self.encoder = ResNetMtl(mtl=False)  
             self.encoder = ResNet12Mtl(drop_rate=0.0, mtl=False)
-            self.pre_fc = nn.Sequential(nn.Linear(640, 1000), nn.ReLU(), nn.Linear(1000, num_cls))
+            # self.pre_fc = nn.Sequential(nn.Linear(640, 1000), nn.ReLU(), nn.Linear(1000, num_cls))
+            self.pre_fc = nn.Linear(512, num_cls)
 
     def forward(self, inp):
         """The function to forward the model.
