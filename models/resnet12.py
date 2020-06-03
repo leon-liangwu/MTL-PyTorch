@@ -15,12 +15,12 @@ class BasicBlockMtl(nn.Module):
 
     def __init__(self, inplanes, planes, stride=1, drop_rate=0, mtl=False):
         super(BasicBlockMtl, self).__init__()
-        self.conv1 = conv3x3(inplanes, planes, mtl=mtl)
+        self.conv1 = conv3x3(inplanes, planes, bias=True, mtl=mtl)
         self.bn1 = nn.BatchNorm2d(planes)
         self.relu = nn.LeakyReLU(0.1)
-        self.conv2 = conv3x3(planes, planes, mtl=mtl)
+        self.conv2 = conv3x3(planes, planes, bias=True, mtl=mtl)
         self.bn2 = nn.BatchNorm2d(planes)
-        self.conv3 = conv3x3(planes, planes, mtl=mtl)
+        self.conv3 = conv3x3(planes, planes, bias=True, mtl=mtl)
         self.bn3 = nn.BatchNorm2d(planes)
         self.res_conv = nn.Conv2d(inplanes, planes, kernel_size=1, stride=1, bias=False)
         self.maxpool = nn.MaxPool2d(2)
