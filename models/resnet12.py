@@ -12,7 +12,7 @@ class BasicBlock(nn.Module):
         super(BasicBlock, self).__init__()
         self.conv1 = conv3x3(inplanes, planes, bias=True)
         self.bn1 = nn.BatchNorm2d(planes)
-        self.relu = nn.ReLU()
+        self.relu = = nn.LeakyReLU(0.1)
         self.conv2 = conv3x3(planes, planes, bias=True)
         self.bn2 = nn.BatchNorm2d(planes)
         self.conv3 = conv3x3(planes, planes, bias=True)
@@ -59,7 +59,7 @@ class BasicBlockMtl(nn.Module):
         super(BasicBlockMtl, self).__init__()
         self.conv1 = conv3x3mtl(inplanes, planes, bias=True)
         self.bn1 = nn.BatchNorm2d(planes)
-        self.relu = nn.ReLU()
+        self.relu = = nn.LeakyReLU(0.1)
         self.conv2 = conv3x3mtl(planes, planes, bias=True)
         self.bn2 = nn.BatchNorm2d(planes)
         self.conv3 = conv3x3mtl(planes, planes, bias=True)
@@ -90,7 +90,6 @@ class BasicBlockMtl(nn.Module):
         out = out + res
         out = self.maxpool(out)
 
-
         out = self.dropout(out)
 
         return out
@@ -105,7 +104,7 @@ class ResNet12Mtl(nn.Module):
         else:
             block = BasicBlock
 
-        channel = [64, 160, 320, 640]
+        channel = [64, 128, 256, 512]
         self.layer1 = block(3, channel[0], drop_rate)
         self.layer2 = block(channel[0], channel[1], drop_rate)
         self.layer3 = block(channel[1], channel[2], drop_rate)
