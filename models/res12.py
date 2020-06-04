@@ -11,15 +11,15 @@ from conv2d_mtl import Conv2dMtl
 # TADAM: Task dependent adaptive metric for improved few-shot learning (Oreshkin et al., in NIPS 2018) and
 # A Simple Neural Attentive Meta-Learner (Mishra et al., in ICLR 2018).
 
-def conv3x3(in_planes, out_planes, stride=1, mtl=False):
+def conv3x3(in_planes, out_planes, stride=1, bias=False, mtl=False):
     """3x3 convolution with padding"""
 
     if not mtl:
         return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
-                        padding=1, bias=False)
+                        padding=1, bias=bias)
     else:
         return Conv2dMtl(in_planes, out_planes, kernel_size=3, stride=stride,
-                        padding=1, bias=False)
+                        padding=1, bias=bias)
               
 
 class BasicBlock(nn.Module):
@@ -27,12 +27,12 @@ class BasicBlock(nn.Module):
 
     def __init__(self, inplanes, planes, stride=1, downsample=None, drop_rate=0.0, drop_block=False, block_size=1, mtl=False):
         super(BasicBlock, self).__init__()
-        self.conv1 = conv3x3(inplanes, planes, mtl=mtl)
+        self.conv1 = conv3x3(inplanes, planes, bias=True, mtl=mtl)
         self.bn1 = nn.BatchNorm2d(planes)
         self.relu = nn.LeakyReLU(0.1)
-        self.conv2 = conv3x3(planes, planes, mtl=mtl)
+        self.conv2 = conv3x3(planes, planes, bias=True, mtl=mtl)
         self.bn2 = nn.BatchNorm2d(planes)
-        self.conv3 = conv3x3(planes, planes, mtl=mtl)
+        self.conv3 = conv3x3(planes, planes, bias=True, mtl=mtl)
         self.bn3 = nn.BatchNorm2d(planes)
         self.maxpool = nn.MaxPool2d(stride)
         self.downsample = downsample
