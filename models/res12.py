@@ -1,7 +1,7 @@
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
-from models import DropBlock
+from models.dropblock import DropBlock
 from models.conv2d_mtl import Conv2dMtl
 
 # from dropblock import DropBlock
